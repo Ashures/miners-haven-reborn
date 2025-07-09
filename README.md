@@ -1,2 +1,2 @@
-# miners-haven-remake
-A project dedicated to remaking the Roblox game Miner's Haven in Unity
+# Miner's Haven Reborn
+A project dedicated to recreating the Roblox game Miner's Haven in Unity.
