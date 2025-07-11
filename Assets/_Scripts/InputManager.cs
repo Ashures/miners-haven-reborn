@@ -9,7 +9,7 @@ public class InputManager : MonoBehaviour
 
   void Awake()
   {
-    Cursor.lockState = CursorLockMode.Confined;
+    // Cursor.lockState = CursorLockMode.Confined;
 
     InputSystem.actions.FindAction("StartPan").performed += StartPan;
     InputSystem.actions.FindAction("StartPan").canceled += EndPan;
@@ -26,7 +26,7 @@ public class InputManager : MonoBehaviour
   void EndPan(InputAction.CallbackContext ctx)
   {
     panningStarted = false;
-    Cursor.lockState = CursorLockMode.Confined;
+    Cursor.lockState = CursorLockMode.None;
   }
 
   void Pan(InputAction.CallbackContext ctx)

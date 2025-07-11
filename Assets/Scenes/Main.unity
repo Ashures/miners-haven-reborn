@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb549a1423c57c64ab00d742ae56d93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 776300349}
+  rotateAroundTarget: {fileID: 776300349}
   rotationSpeed: 10
   gamepadSpeedMod: 10
 --- !u!1660057539 &9223372036854775807
