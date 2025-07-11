@@ -11,6 +11,7 @@ public class RotateCamera : MonoBehaviour
 
   void Awake()
   {
+    // If singleton exists, delete this script
     if (Instance != null && Instance != this)
     {
       Destroy(gameObject);
