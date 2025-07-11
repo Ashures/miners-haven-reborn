@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "Tap(duration=0.1)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Hover",
+                    "type": "PassThrough",
+                    "id": "dd92ef36-b361-4228-8d6d-7b3f5b58bc6f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -75,6 +84,39 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "OpenBuildingMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "027133b6-d921-4f34-9a37-71176f66b623",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "OpenBuildingMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "44693d80-43b4-4305-80e2-1d4da7ca60fc",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Hover",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0558a404-3828-4625-ac08-74135212b0ca",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Hover",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
