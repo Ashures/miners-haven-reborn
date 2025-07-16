@@ -5,6 +5,7 @@ public class BuildingInfo : ScriptableObject
 {
   public GameObject prefab;
 
+  public string id;
   public string displayName;
   public Sprite sprite;
   public string desc;
