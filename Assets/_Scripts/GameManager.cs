@@ -5,7 +5,9 @@ public class GameManager : MonoBehaviour
 {
   public static GameManager Instance { get; private set; }
 
-  [HideInInspector] public Dictionary<string, BuildingStack> inventory = new();
+  [SerializeField] private BuildingInfo exampleBuilding;
+
+  public Dictionary<string, BuildingStack> inventory = new();
 
   void Awake()
   {
@@ -16,6 +18,12 @@ public class GameManager : MonoBehaviour
     }
 
     Instance = this;
+
+    inventory[exampleBuilding.id] = new()
+    {
+      buildingData = exampleBuilding,
+      currentStack = 20
+    };
   }
 
   public void AddBuildingToInventory(BuildingInfo buildingInfo, int stack)
