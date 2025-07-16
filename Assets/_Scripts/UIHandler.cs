@@ -35,6 +35,8 @@ public class UIHandler : MonoBehaviour
 
   public void OpenWindow(string windowTarget)
   {
+    window.SetActive(true);
+
     switch (windowTarget)
     {
       case "inventory":
@@ -62,8 +64,6 @@ public class UIHandler : MonoBehaviour
       CloseWindow();
       return;
     }
-
-    window.SetActive(true);
 
     activeWindowContext = ctx;
     activeWindowContext.SetActive(true);
