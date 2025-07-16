@@ -68,8 +68,6 @@ public class UIHandler : MonoBehaviour
       return;
     }
 
-    DisplayError($"Opened {ctx.name}");
-
     activeWindowContext = ctx;
     activeWindowContext.SetActive(true);
   }
