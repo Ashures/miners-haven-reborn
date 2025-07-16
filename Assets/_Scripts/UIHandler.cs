@@ -11,8 +11,11 @@ public class UIHandler : MonoBehaviour
   [SerializeField] private GameObject inventory;
   [SerializeField] private GameObject shop;
   [SerializeField] private GameObject settings;
+  [SerializeField] private GameObject errorMessage;
 
   private GameObject activeWindowContext;
+  private ErrorHandler errorHandler;
+  private Coroutine currentError;
 
   void Awake()
   {
@@ -65,7 +68,22 @@ public class UIHandler : MonoBehaviour
       return;
     }
 
+    DisplayError($"Opened {ctx.name}");
+
     activeWindowContext = ctx;
     activeWindowContext.SetActive(true);
+  }
+
+  public void DisplayError(string messageToDisplay)
+  {
+    if (errorHandler == null)
+      errorHandler = errorMessage.GetComponent<ErrorHandler>();
+    
+    if (currentError != null)
+      StopCoroutine(currentError);
+
+    errorMessage.SetActive(true);
+
+    currentError = StartCoroutine(errorHandler.DisplayError(messageToDisplay));
   }
 }
