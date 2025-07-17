@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2158427781202849189}
   - component: {fileID: 6699166132223961772}
   - component: {fileID: 4429278217795691548}
+  - component: {fileID: 5412688070873096264}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -139,6 +140,18 @@ MonoBehaviour:
     buildingData: {fileID: 0}
     maxStack: 99
     currentStack: 0
+--- !u!114 &5412688070873096264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108506597176537158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f8fe4f3e73f7614baeeaac832a4766f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4806395285790421500
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +244,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.85
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

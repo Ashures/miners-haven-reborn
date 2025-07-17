@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
   [SerializeField] private BuildingInfo exampleBuilding;
 
   public Dictionary<string, BuildingStack> inventory = new();
+  public BuildingStack selectedBuilding;
 
   void Awake()
   {
@@ -55,5 +56,10 @@ public class GameManager : MonoBehaviour
       inventory.Remove(buildingId);
     else
       inventory[buildingId] = building;
+  }
+
+  public void ChangeSelectedBuilding(BuildingStack newBuilding)
+  {
+    selectedBuilding = newBuilding;
   }
 }
