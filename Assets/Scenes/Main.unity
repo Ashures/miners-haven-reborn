@@ -334,6 +334,7 @@ MonoBehaviour:
   shop: {fileID: 593555452}
   settings: {fileID: 1745996957}
   errorMessage: {fileID: 1228250517}
+  interactionGuide: {fileID: 785658729}
 --- !u!1 &399189738
 GameObject:
   m_ObjectHideFlags: 0
