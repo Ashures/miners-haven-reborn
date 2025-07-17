@@ -9,9 +9,20 @@ public class GridUIResizer : MonoBehaviour
 
   void OnTransformChildrenChanged()
   {
-    print(gridLayoutGroup.spacing);
-    print(gridLayoutGroup.constraintCount);
-    print(rectTransform.rect.width);
+    UpdateCellSize();
+  }
+
+  void AssignComponentsIfNull()
+  {
+    if (gridLayoutGroup == null)
+      gridLayoutGroup = GetComponent<GridLayoutGroup>();
+    if (rectTransform == null)
+      rectTransform = GetComponent<RectTransform>();
+  }
+
+  void UpdateCellSize()
+  {
+    AssignComponentsIfNull();
 
     int totalSpacing = (gridLayoutGroup.constraintCount - 1) * (int)gridLayoutGroup.spacing.x;
     int cellSize = (int)(rectTransform.rect.width - totalSpacing) / gridLayoutGroup.constraintCount;
