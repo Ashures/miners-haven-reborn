@@ -17,6 +17,7 @@ public class HoverGridCell : MonoBehaviour
 
   [HideInInspector] public Vector2 mousePosition;
   [HideInInspector] public Vector2 cellSelected;
+  [HideInInspector] public Vector2 cellSelectedPosition;
 
   void Awake()
   {
@@ -61,6 +62,7 @@ public class HoverGridCell : MonoBehaviour
       if (!cellSelected.Equals(newCellSelected))
       {
         cellSelected = newCellSelected;
+        cellSelectedPosition = grid.CellToWorld(new Vector3Int((int) cellSelected.x, 0, (int) cellSelected.y));
         UpdateShader();
       }
     }

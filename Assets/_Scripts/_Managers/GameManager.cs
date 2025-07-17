@@ -5,10 +5,10 @@ public class GameManager : MonoBehaviour
 {
   public static GameManager Instance { get; private set; }
 
-  [SerializeField] private BuildingInfo exampleBuilding;
+  [SerializeField] private BuildingInfo exampleBuildingInfo;
+  private PlaceBuilding placeBuilding;
 
   public Dictionary<string, BuildingStack> inventory = new();
-  public BuildingStack selectedBuilding;
 
   void Awake()
   {
@@ -20,9 +20,11 @@ public class GameManager : MonoBehaviour
 
     Instance = this;
 
-    inventory[exampleBuilding.id] = new()
+    placeBuilding = GetComponent<PlaceBuilding>();
+
+    inventory[exampleBuildingInfo.id] = new()
     {
-      buildingData = exampleBuilding,
+      buildingData = exampleBuildingInfo,
       currentStack = 20
     };
   }
@@ -60,6 +62,6 @@ public class GameManager : MonoBehaviour
 
   public void ChangeSelectedBuilding(BuildingStack newBuilding)
   {
-    selectedBuilding = newBuilding;
+    placeBuilding.ChangeSelectedBuilding(newBuilding);
   }
 }
