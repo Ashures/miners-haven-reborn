@@ -9,6 +9,7 @@ public class SelectBuilding : MonoBehaviour
 
   void OnEnable()
   {
+    button = GetComponent<Button>();
     button.onClick.AddListener(Select);
   }
 
