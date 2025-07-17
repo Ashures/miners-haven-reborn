@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(SetupBuildingSlot))]
 public class SelectBuilding : MonoBehaviour
 {
+  [SerializeField] private List<PlatformBinds> binds;
   private SetupBuildingSlot setupBuildingSlot;
   private Button button;
 
@@ -25,5 +27,6 @@ public class SelectBuilding : MonoBehaviour
 
     GameManager.Instance.ChangeSelectedBuilding(setupBuildingSlot.building);
     UIHandler.Instance.CloseWindow();
+    UIHandler.Instance.OpenInteractionGuide(binds);
   }
 }

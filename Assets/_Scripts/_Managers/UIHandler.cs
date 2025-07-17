@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +13,12 @@ public class UIHandler : MonoBehaviour
   [SerializeField] private GameObject shop;
   [SerializeField] private GameObject settings;
   [SerializeField] private GameObject errorMessage;
+  [SerializeField] private GameObject interactionGuide;
 
   private GameObject activeWindowContext;
   private ErrorHandler errorHandler;
+  private DisplayInteractionBinds displayInteraction;
+
   private Coroutine currentError;
 
   void Awake()
@@ -76,12 +80,20 @@ public class UIHandler : MonoBehaviour
   {
     if (errorHandler == null)
       errorHandler = errorMessage.GetComponent<ErrorHandler>();
-    
+
     if (currentError != null)
       StopCoroutine(currentError);
 
     errorMessage.SetActive(true);
 
     currentError = StartCoroutine(errorHandler.DisplayError(messageToDisplay));
+  }
+
+  public void OpenInteractionGuide(List<PlatformBinds> interactionBinds)
+  {
+    if (displayInteraction == null)
+      displayInteraction = interactionGuide.GetComponent<DisplayInteractionBinds>();
+
+    displayInteraction.OpenGuide(interactionBinds);
   }
 }

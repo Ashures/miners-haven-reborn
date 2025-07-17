@@ -29,15 +29,19 @@ public class HoverGridCell : MonoBehaviour
     Instance = this;
 
     grid = GetComponent<Grid>();
-    meshRenderer = GetComponent<MeshRenderer>();
 
-    if (mat == null)
-    {
-      mat = new(shader);
-    }
-
-    oldGridSettings = new(gridSettings);
     UpdateShader();
+  }
+
+  void OnValidate()
+  {
+    oldGridSettings ??= new(gridSettings);
+
+    if (!gridSettings.Compare(oldGridSettings))
+    {
+      oldGridSettings.CopySettings(gridSettings);
+      UpdateShader();
+    }
   }
 
   public void UpdateControllerPos(Vector2 delta)
@@ -47,12 +51,6 @@ public class HoverGridCell : MonoBehaviour
 
   void Update()
   {
-    if (!gridSettings.Compare(oldGridSettings))
-    {
-      oldGridSettings.CopySettings(gridSettings);
-      UpdateShader();
-    }
-
     Ray rayFromMousePos = cam.ScreenPointToRay(mousePosition);
 
     if (Physics.Raycast(rayFromMousePos, out RaycastHit hit, 100, layerMask.value))
@@ -70,6 +68,11 @@ public class HoverGridCell : MonoBehaviour
 
   void UpdateShader()
   {
+    if (mat == null)
+    {
+      mat = new(shader);
+    }
+
     mat.SetColor("_MainCol", gridSettings.mainColor);
 
     // Grid properties
@@ -87,6 +90,11 @@ public class HoverGridCell : MonoBehaviour
     // Cell properties
     mat.SetColor("_CellCol", gridSettings.cellColor);
     mat.SetVector("_CellSelected", cellSelected);
+
+    if (meshRenderer == null)
+    {
+      meshRenderer = GetComponent<MeshRenderer>();
+    }
 
     meshRenderer.material = mat;
   }

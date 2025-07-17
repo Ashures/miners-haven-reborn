@@ -7,7 +7,14 @@ public class GridUIResizer : MonoBehaviour
   private GridLayoutGroup gridLayoutGroup;
   private RectTransform rectTransform;
 
+  [SerializeField] private bool horizontalConstraint = true;
+
   void OnTransformChildrenChanged()
+  {
+    UpdateCellSize();
+  }
+
+  void OnValidate()
   {
     UpdateCellSize();
   }
@@ -25,7 +32,7 @@ public class GridUIResizer : MonoBehaviour
     AssignComponentsIfNull();
 
     int totalSpacing = (gridLayoutGroup.constraintCount - 1) * (int)gridLayoutGroup.spacing.x;
-    int cellSize = (int)(rectTransform.rect.width - totalSpacing) / gridLayoutGroup.constraintCount;
+    int cellSize = (int)((horizontalConstraint ? rectTransform.rect.width : rectTransform.rect.height) - totalSpacing) / gridLayoutGroup.constraintCount;
 
     gridLayoutGroup.cellSize = Vector2.one * cellSize;
   }
