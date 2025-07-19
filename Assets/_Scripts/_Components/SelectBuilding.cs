@@ -25,7 +25,7 @@ public class SelectBuilding : MonoBehaviour
   {
     AssignComponentIfNull();
 
-    GameManager.Instance.ChangeSelectedBuilding(setupBuildingSlot.building);
+    GameManager.Instance.StartPlacingBuilding(setupBuildingSlot);
     UIHandler.Instance.CloseWindow();
     UIHandler.Instance.OpenInteractionGuide(binds);
   }

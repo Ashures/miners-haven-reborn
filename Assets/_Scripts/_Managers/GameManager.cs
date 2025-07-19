@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
   public static GameManager Instance { get; private set; }
 
   [SerializeField] private BuildingInfo exampleBuildingInfo;
-  private PlaceBuilding placeBuilding;
+  [HideInInspector] public PlaceBuilding placeBuilding;
+  [HideInInspector] public SetupBuildingSlot selectedBuildingSlot;
 
   public Dictionary<string, BuildingStack> inventory = new();
 
@@ -58,6 +59,13 @@ public class GameManager : MonoBehaviour
       inventory.Remove(buildingId);
     else
       inventory[buildingId] = building;
+  }
+
+  public void StartPlacingBuilding(SetupBuildingSlot buildingSlot)
+  {
+    selectedBuildingSlot = buildingSlot;
+    placeBuilding.ChangeSelectedBuilding(buildingSlot.building);
+    placeBuilding.Enable(true);
   }
 
   public void ChangeSelectedBuilding(BuildingStack newBuilding)
