@@ -1,4 +1,4 @@
-Shader "Unlit/Grid"
+Shader "Custom/Grid"
 {
   Properties
   {
@@ -14,7 +14,6 @@ Shader "Unlit/Grid"
   SubShader
   {
     Tags { "RenderType"="Opaque" }
-    LOD 100
 
     Pass
     {

@@ -9,7 +9,7 @@ public class GridSettings
   public float gridSize;
   public float gridWidth;
   public Color lineColor;
-  [Range(0.01f, 0.1f)] public float lineThreshold;
+  [Range(0.01f, 0.25f)] public float lineThreshold;
   public Color cellColor;
 
   public GridSettings(GridSettings settings)
