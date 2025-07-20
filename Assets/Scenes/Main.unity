@@ -311,7 +311,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1511,7 +1511,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: {fileID: 438237482}
-  errorDisplayTime: 5
+  errorDisplayTime: 3
+  errorFadeOutTime: 1
+  originalErrorWindowColor: {r: 0.8, g: 0.29803923, b: 0.29803923, a: 1}
+  originalErrorMessageColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1351203829
 GameObject:
   m_ObjectHideFlags: 0

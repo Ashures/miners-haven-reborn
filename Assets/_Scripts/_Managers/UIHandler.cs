@@ -89,11 +89,23 @@ public class UIHandler : MonoBehaviour
     currentError = StartCoroutine(errorHandler.DisplayError(messageToDisplay));
   }
 
-  public void OpenInteractionGuide(List<PlatformBinds> interactionBinds)
+  private void AssignInteractionGuide()
   {
     if (displayInteraction == null)
       displayInteraction = interactionGuide.GetComponent<DisplayInteractionBinds>();
+  }
+
+  public void OpenInteractionGuide(List<PlatformBinds> interactionBinds)
+  {
+    AssignInteractionGuide();
 
     displayInteraction.OpenGuide(interactionBinds);
+  }
+
+  public void CloseInteractionGuide()
+  {
+    AssignInteractionGuide();
+
+    displayInteraction.CloseGuide();
   }
 }

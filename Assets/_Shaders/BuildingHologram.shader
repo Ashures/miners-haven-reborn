@@ -2,8 +2,11 @@ Shader "Custom/BuildingHologram"
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
-        _Shadow ("Shadow", Range(0, 1)) = 1
+      [Toggle(PLACEMENT_ERROR)] _PlacementError ("Placement Error", Float) = 1
+
+      _MainColor ("Main Color", Color) = (1,1,1,1)
+      _ErrorColor ("Error Color", Color) = (1,1,1,1)
+      _Shadow ("Shadow", Range(0, 1)) = 1
     }
     SubShader
     {
@@ -13,11 +16,10 @@ Shader "Custom/BuildingHologram"
         ZWrite off
 
         CGPROGRAM
-        // Physically based Standard lighting model, and enable shadows on all light types
         #pragma surface surf Standard alpha:fade
-
-        // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
+        #pragma multi_compile _ PLACEMENT_ERROR
+
 
         sampler2D _MainTex;
 
@@ -26,23 +28,27 @@ Shader "Custom/BuildingHologram"
           float2 uv_MainTex;
         };
 
-        float4 _Color;
+        float4 _MainColor;
+        float4 _ErrorColor;
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-          o.Albedo = _Color.rgb;
-          o.Alpha = _Color.a;
+          #ifdef PLACEMENT_ERROR
+            o.Albedo = _ErrorColor.rgb;
+            o.Alpha = _ErrorColor.a;
+          #else
+            o.Albedo = _MainColor.rgb;
+            o.Alpha = _MainColor.a;
+          #endif
         }
         ENDCG
 
         ColorMask 0
 
         CGPROGRAM
-        // Physically based Standard lighting model, and enable shadows on all light types
         #pragma surface surf Standard alpha:fade alphatest:_Shadow addshadow
-
-        // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
+        #pragma multi_compile _ PLACEMENT_ERROR
 
         sampler2D _MainTex;
 
@@ -51,12 +57,18 @@ Shader "Custom/BuildingHologram"
           float2 uv_MainTex;
         };
 
-        float4 _Color;
+        float4 _MainColor;
+        float4 _ErrorColor;
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-          o.Albedo = _Color.rgb;
-          o.Alpha = _Color.a;
+          #ifdef PLACEMENT_ERROR
+            o.Albedo = _ErrorColor.rgb;
+            o.Alpha = _ErrorColor.a;
+          #else
+            o.Albedo = _MainColor.rgb;
+            o.Alpha = _MainColor.a;
+          #endif
         }
         ENDCG
     }

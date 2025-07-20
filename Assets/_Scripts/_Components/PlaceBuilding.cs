@@ -18,6 +18,15 @@ public class PlaceBuilding : MonoBehaviour
   private void MoveHologram()
   {
     buildingToPlace.transform.position = HoverGridCell.Instance.cellSelectedPosition;
+
+    if (BuildingManager.Instance.CellOccupied(HoverGridCell.Instance.cellSelected))
+    {
+      mat.EnableKeyword("PLACEMENT_ERROR");
+    }
+    else
+    {
+      mat.DisableKeyword("PLACEMENT_ERROR");
+    }
   }
 
   public void Enable(bool enabled)
@@ -47,7 +56,11 @@ public class PlaceBuilding : MonoBehaviour
 
   public void Place()
   {
-    if (BuildingManager.Instance.CellOccupied(HoverGridCell.Instance.cellSelected)) return;
+    if (BuildingManager.Instance.CellOccupied(HoverGridCell.Instance.cellSelected))
+    {
+      UIHandler.Instance.DisplayError("Cell already occupied!");
+      return;
+    }
 
     GameManager.Instance.RemoveBuildingFromInventory(selectedBuilding.buildingData.id, amountToRemove: 1);
     
@@ -58,6 +71,7 @@ public class PlaceBuilding : MonoBehaviour
     building.transform.position = HoverGridCell.Instance.cellSelectedPosition;
     BuildingManager.Instance.AddBuilding(building, HoverGridCell.Instance.cellSelected);
 
+    UIHandler.Instance.CloseInteractionGuide();
     Enable(false);
   }
 }
