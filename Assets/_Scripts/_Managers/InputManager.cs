@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
     InputSystem.actions.FindAction("StartPan").canceled += EndPan;
     InputSystem.actions.FindAction("Pan").performed += Pan;
     InputSystem.actions.FindAction("Hover").performed += Hover;
+    InputSystem.actions.FindAction("PlaceBuilding").performed += PlaceBuilding;
     InputSystem.actions.FindAction("OpenBuildingMenu").performed += OpenBuildingMenu;
   }
 
@@ -52,6 +53,13 @@ public class InputManager : MonoBehaviour
     }
 
     HoverGridCell.Instance.UpdateControllerPos(new(Mathf.Clamp01(Mathf.Ceil(pos.x)), Mathf.Clamp01(Mathf.Ceil(pos.y))));
+  }
+
+  void PlaceBuilding(InputAction.CallbackContext ctx)
+  {
+    if (!GameManager.Instance.placeBuilding.isEnabled) return;
+
+    GameManager.Instance.placeBuilding.Place();
   }
 
   void OpenBuildingMenu(InputAction.CallbackContext ctx)
