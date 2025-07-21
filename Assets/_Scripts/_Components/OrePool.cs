@@ -26,7 +26,6 @@ public class OrePool : MonoBehaviour
     _requestedObjectTransform.localScale = scale;
 
     Rigidbody _requestedObjectRigidbody = requestedObject.GetComponent<Rigidbody>();
-    _requestedObjectRigidbody.ResetInertiaTensor();
     _requestedObjectRigidbody.linearVelocity = Vector3.zero;
     _requestedObjectRigidbody.angularVelocity = Vector3.zero;
 
