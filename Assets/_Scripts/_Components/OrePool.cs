@@ -23,9 +23,12 @@ public class OrePool : MonoBehaviour
     Transform _requestedObjectTransform = requestedObject.transform;
 
     _requestedObjectTransform.SetPositionAndRotation(pos, rot);
-    print(_requestedObjectTransform.localScale);
     _requestedObjectTransform.localScale = scale;
-    print(_requestedObjectTransform.localScale);
+
+    Rigidbody _requestedObjectRigidbody = requestedObject.GetComponent<Rigidbody>();
+    _requestedObjectRigidbody.ResetInertiaTensor();
+    _requestedObjectRigidbody.linearVelocity = Vector3.zero;
+    _requestedObjectRigidbody.angularVelocity = Vector3.zero;
 
     requestedObject.GetComponent<OreMechanics>().dropperInfo = dropper;
 

@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1e7f6cf16f6efb544b11d3a5bedf0d90, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropperInfo: {fileID: 0}
+  mainColor: {r: 0, g: 0, b: 0, a: 0}
+  errorColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!65 &7790344116184463626
 BoxCollider:
   m_ObjectHideFlags: 0
