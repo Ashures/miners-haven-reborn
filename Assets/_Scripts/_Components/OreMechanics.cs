@@ -15,7 +15,7 @@ public class OreMechanics : MonoBehaviour
 
   private IEnumerator ReturnOre()
   {
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.5f);
 
     BuildingManager.Instance.orePool.ReturnToPool(gameObject);
   }
