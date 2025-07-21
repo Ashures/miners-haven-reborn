@@ -5,10 +5,12 @@ public class BuildingManager : MonoBehaviour
 {
   public static BuildingManager Instance { get; private set; }
 
+  [HideInInspector] public OrePool orePool;
+
   private GameObject[,] cellsOccupied;
   private readonly Dictionary<float, List<DropOre>> droppers = new();
+  private readonly Dictionary<float, float> nextDrops = new();
   public bool droppersActive = true;
-  [SerializeField, Range(0f, 0.5f)] private float dropThreshold;
 
   void Awake()
   {
@@ -19,6 +21,8 @@ public class BuildingManager : MonoBehaviour
     }
 
     Instance = this;
+
+    orePool = GetComponent<OrePool>();
   }
 
   void Start()
@@ -38,7 +42,19 @@ public class BuildingManager : MonoBehaviour
 
     foreach (float dropRate in droppers.Keys)
     {
-      
+      if (nextDrops[dropRate] <= Time.time)
+      {
+        nextDrops[dropRate] = Time.time + dropRate;
+        SpawnOres(dropRate);
+      }
+    }
+  }
+
+  private void SpawnOres(float dropRate)
+  {
+    foreach (DropOre dropper in droppers[dropRate])
+    {
+      dropper.Drop();
     }
   }
 
@@ -56,7 +72,10 @@ public class BuildingManager : MonoBehaviour
       if (dropRateInDroppers)
         droppers[dropOre.dropperInfo.dropRate].Add(dropOre);
       else
+      {
         droppers[dropOre.dropperInfo.dropRate] = new() { dropOre };
+        nextDrops[dropOre.dropperInfo.dropRate] = Time.time + dropOre.dropperInfo.dropRate;
+      }
     }
 
     return true;
