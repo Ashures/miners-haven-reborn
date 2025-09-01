@@ -1,4 +1,4 @@
-Shader "Custom/Grid"
+Shader "Custom/Object/Grid"
 {
   Properties
   {
@@ -13,42 +13,43 @@ Shader "Custom/Grid"
   }
   SubShader
   {
-    Tags { "RenderType"="Opaque" }
+    Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalPipeline" }
 
     Pass
     {
-      CGPROGRAM
+      HLSLPROGRAM
       #pragma vertex vert
       #pragma fragment frag
       #pragma multi_compile _ USE_GRID
 
-      #include "UnityCG.cginc"
-      
-      bool _GridActive;
-      float4 _MainCol;
-      float4 _LineCol;
-      float _GridSize;
-      float _GridWidth;
-      float _LineThreshold;
-      float4 _CellCol;
-      float2 _CellSelected;
+      #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+      CBUFFER_START(UnityPerMaterial)
+        bool _GridActive;
+        float4 _MainCol;
+        float4 _LineCol;
+        float _GridSize;
+        float _GridWidth;
+        float _LineThreshold;
+        float4 _CellCol;
+        float2 _CellSelected;
+      CBUFFER_END
 
-      struct VertData
+      struct Attributes
       {
         float4 vertex : POSITION;
         float2 uv : TEXCOORD0;
       };
       
-      struct v2f
+      struct Varyings
       {
         float4 vertex : SV_POSITION;
         float2 uv : TEXCOORD0;
       };
       
-      v2f vert (VertData v)
+      Varyings vert (Attributes v)
       {
-        v2f o;
-        o.vertex = UnityObjectToClipPos(v.vertex);
+        Varyings o;
+        o.vertex = TransformObjectToHClip(v.vertex.xyz);
         o.uv = v.uv;
         return o;
       }
@@ -67,7 +68,7 @@ Shader "Custom/Grid"
                 uv.y > _CellSelected.y + _LineThreshold && uv.y < _CellSelected.y + _GridSize - _LineThreshold);
       }
 
-      float4 frag (v2f i) : SV_Target
+      float4 frag (Varyings i) : SV_Target
       {
         float4 col;
 
@@ -81,7 +82,7 @@ Shader "Custom/Grid"
 
         return col;
       }
-      ENDCG
+      ENDHLSL
     }
   }
 }
