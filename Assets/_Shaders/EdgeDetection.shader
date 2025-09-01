@@ -1,56 +1,70 @@
-Shader "Hidden/EdgeDetection"
+Shader "Custom/PostProcessing/EdgeDetection"
 {
   Properties
   {
-    _MainTex ("Texture", 2D) = "white" {}
+    _BaseMap ("Texture", 2D) = "white" {}
+    _BorderColor ("Border Color", Color) = (0, 0, 0, 0)
+    _EdgeSize ("Edge Size", Float) = 0
   }
   SubShader
   {
+    Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalPipeline" }
+
     Pass
     {
-      CGPROGRAM
+      HLSLPROGRAM
       #pragma vertex vert
       #pragma fragment frag
 
-      #include "UnityCG.cginc"
+      #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-      struct appdata
+      struct Attributes
       {
         float4 vertex : POSITION;
         float2 uv : TEXCOORD0;
       };
 
-      struct v2f
+      struct Varyings
       {
         float2 uv : TEXCOORD0;
         float4 vertex : SV_POSITION;
       };
 
-      sampler2D _MainTex, _CameraDepthTexture;
-      float4 _BorderColor, _CameraDepthTexture_TexelSize;
-      float _EdgeSize;
+      TEXTURE2D(_BaseMap);
+      SAMPLER(sampler_BaseMap);
 
-      v2f vert (appdata v)
+      TEXTURE2D(_CameraDepthTexture);
+      SAMPLER(sampler_CameraDepthTexture);
+
+      CBUFFER_START(UnityPerMaterial)
+      float4 _BorderColor;
+      float4 _CameraDepthTexture_TexelSize;
+      float _EdgeSize;
+      CBUFFER_END
+
+      Varyings vert (Attributes v)
       {
-        v2f o;
-        o.vertex = UnityObjectToClipPos(v.vertex);
+        Varyings o;
+        o.vertex = TransformObjectToHClip(v.vertex.xyz);
         o.uv = v.uv;
         return o;
       }
 
-      float getDepthByDirection(v2f i, float2 dir) 
+      float getDepthByDirection(Varyings i, float2 dir) 
       {
         return Linear01Depth(
-          tex2D(
+          SAMPLE_TEXTURE2D(
             _CameraDepthTexture, 
-            i.uv + dir * _CameraDepthTexture_TexelSize * _EdgeSize
-          ).r
+            sampler_CameraDepthTexture, 
+            i.uv + dir * _CameraDepthTexture_TexelSize.xy * _EdgeSize
+          ).r,
+          _ZBufferParams
         );
       }
 
-      float4 frag (v2f i) : SV_Target
+      float4 frag (Varyings i) : SV_Target
       {
-        float4 col = tex2D(_MainTex, i.uv);
+        float4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv);
 
         float n = getDepthByDirection(i, float2(0, 1));
         float e = getDepthByDirection(i, float2(1, 0));
@@ -63,7 +77,7 @@ Shader "Hidden/EdgeDetection"
 
         return col;
       }
-      ENDCG
+      ENDHLSL
     }
   }
 }
